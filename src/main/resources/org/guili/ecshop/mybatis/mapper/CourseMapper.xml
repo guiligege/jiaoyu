@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.guili.ecshop.dao.jiaoyu.ICourseDao">
+ <!-- 要对应到所有属性 才能使用-->
+ <resultMap id="courseMap" type="course">
+ 	<result property="id" column="id"/>
+ 	<result property="courseName" column="courseName"/>
+	<result property="courseNameHash" column="courseNameHash"/>
+	<result property="gradeId" column="gradeId"/>
+	<result property="grade" column="grade"/>
+	<result property="kemuId" column="kemuId"/>
+	<result property="kemu" column="kemu"/>
+	<result property="pingTaiId" column="pingTaiId"/>
+	<result property="pingTaiName" column="pingTaiName"/>
+	<result property="detail" column="detail"/>
+	<result property="teacherId" column="teacherId"/>
+	<result property="teacherName" column="teacherName"/>
+	<result property="jigou" column="jigou"/>
+	<result property="teachTime" column="teachTime"/>
+	<result property="keshi" column="keshi"/>
+	<result property="courseImgURL" column="courseImgURL"/>
+	<result property="studyCount" column="studyCount"/>
+	<result property="price" column="price"/>
+	<result property="courseUrl" column="courseUrl"/>
+	<result property="courseType" column="courseType"/>
+	<result property="status" column="status"/>
+ </resultMap>
+ 
+ <!-- 这里namespace必须是UserMapper接口的路径，不然要运行的时候要报错 "is not known to the MapperRegistry" -->
+ <insert id="addCourse" parameterType="course" >
+	  <![CDATA[ 
+	  insert into t_ma_course
+	  				 (courseName,courseNameHash,gradeId,grade,kemuId,kemu,pingTaiId,
+	  				 		pingTaiName,detail,teacherId,teacherName,jigou,teachTime,keshi,courseImgURL,studyCount,price,courseUrl,courseType,status)
+	  				 		
+	  				values (#{courseName},#{courseNameHash},#{gradeId},#{grade},#{kemuId},#{kemu},#{pingTaiId},
+	  						#{pingTaiName},#{detail},#{teacherId},#{teacherName},#{jigou},#{teachTime},#{keshi},#{courseImgURL},#{studyCount},#{price},#{courseUrl},#{courseType},#{status})
+	  ]]>
+ </insert>
+ 
+   <!-- 根据id查询课程-->
+ <select id="selectCourseById" parameterType="Map" resultType="org.guili.ecshop.business.jiaoyu.bean.Course">
+  	select * from t_ma_course 
+  	where
+	  	<if test="id !=null">
+	        id = #{id}
+	    </if>
+	    limit 1
+ </select>
+ <!-- 根据title的hash值查询课程信息-->
+ <select id="selectCourseByHash" parameterType="Map" resultType="Integer">
+  	select count(1) from t_ma_course 
+  	where
+	  	<if test="courseNameHash !=null">
+	       courseNameHash = #{courseNameHash}
+	    </if>
+	     limit 1
+ </select>
+ 
+  <!-- 查询课程数量-->
+ <select id="selectCourseCount" parameterType="Map" resultType="Integer">
+   
+  	select count(1) from t_ma_course 
+  	<where> 
+  	1=1
+	<if test="gradeId !=null">
+	    AND gradeId = #{gradeId}
+	</if>
+	<if test="kemuId !=null">
+	    AND kemuId = #{kemuId}
+	</if>
+	<if test="status !=null">
+	    AND status = #{status}
+	</if>
+    </where>
+ </select>
+ 
+  <!-- 分页查询课程信息-->
+ <select id="selectCoursePage" parameterType="Map" resultType="org.guili.ecshop.business.jiaoyu.bean.Course">
+  	select * from t_ma_course 
+  	<where> 
+  	1=1
+    <if test="gradeId !=null">
+	    AND gradeId = #{gradeId}
+	</if>
+	<if test="kemuId !=null">
+	    AND kemuId = #{kemuId}
+	</if>
+	<if test="status !=null">
+	    AND status = #{status}
+	</if>
+		order by id desc
+    <if test="start !=null and pageSize!=null">
+    	limit #{start},#{pageSize} 
+    </if>
+    </where>
+ </select>
+ 
+   <!-- 查询相关课程信息-->
+ <select id="selectLikeThis" parameterType="Map" resultType="org.guili.ecshop.business.jiaoyu.bean.Course">
+  	select * from t_ma_course 
+  	<where> 
+  	1=1
+    <if test="gradeId !=null">
+	    AND gradeId = #{gradeId}
+	</if>
+	<if test="status !=null">
+	    AND status = #{status}
+	</if>
+		order by id desc
+    <if test="size!=null">
+    	limit #{size} 
+    </if>
+    </where>
+ </select>
+ 
+ 
+</mapper>  

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.guili.ecshop.dao.netlicai.INetLcDetailDao">
+ <!-- 要对应到所有属性 才能使用-->
+ <resultMap id="netLcProductMap" type="netLcProduct">
+ 	<result property="id" column="id"/>
+ 	<result property="title" column="title"/>
+	<result property="titlehash" column="titlehash"/>
+	<result property="days" column="days"/>
+	<result property="income" column="income"/>
+	<result property="totalMoney" column="totalMoney"/>
+	<result property="nowMoney" column="nowMoney"/>
+	<result property="leastMoney" column="leastMoney"/>
+	<result property="companyId" column="companyId"/>
+	<result property="companyName" column="companyName"/>
+	<result property="dailiCompany" column="dailiCompany"/>
+	<result property="createTime" column="createTime"/>
+	<result property="endTime" column="endTime"/>
+	<result property="descrip" column="descrip"/>
+	<result property="licaimeDescrip" column="licaimeDescrip"/>
+	<result property="status" column="status"/>
+	<result property="jindu" column="jindu"/>
+	<result property="incometype" column="incometype"/>
+	<result property="linkurl" column="linkurl"/>
+ </resultMap>
+ 
+ <!-- 这里namespace必须是UserMapper接口的路径，不然要运行的时候要报错 "is not known to the MapperRegistry" -->
+ <insert id="addNetLcProduct" parameterType="netLcProduct" >
+	  <![CDATA[ 
+	  insert into t_ma_netlc_product
+	  				 (title,titlehash,days,income,totalMoney,nowMoney,leastMoney,
+	  				 		companyId,companyName,dailiCompany,createTime,endTime,descrip,licaimeDescrip,status,jindu,incometype,linkurl)
+	  				 		
+	  				values (#{title},#{titlehash},#{days},#{income},#{totalMoney},#{nowMoney},#{leastMoney},
+	  						#{companyId},#{companyName},#{dailiCompany},#{createTime},#{endTime},#{descrip},#{licaimeDescrip},#{status},#{jindu},#{incometype},#{linkurl})
+	  ]]>
+ </insert>
+ 
+   <!-- 根据id查询用户-->
+ <select id="selectNetLcProductById" parameterType="Map" resultType="org.guili.ecshop.business.p2p.bean.NetLcProduct">
+  	select * from t_ma_netlc_product 
+  	where
+	  	<if test="id !=null">
+	        id = #{id}
+	    </if>
+	    limit 1
+ </select>
+ <!-- 根据title的hash值查询销售信息-->
+ <select id="selectNetLcProductByHash" parameterType="Map" resultType="Integer">
+  	select count(1) from t_ma_netlc_product 
+  	where
+	  	<if test="titlehash !=null">
+	       titlehash = #{titlehash}
+	    </if>
+	     limit 1
+ </select>
+ 
+  <!-- 查询理财产品数量-->
+ <select id="selectNetLcProductCount" parameterType="Map" resultType="Integer">
+   
+  	select count(1) from t_ma_netlc_product 
+  	<where> 
+  	1=1
+	<if test="companyId !=null">
+	    AND companyId = #{companyId}
+	</if>
+	<if test="status !=null">
+	    AND status = #{status}
+	</if>
+    </where>
+ </select>
+ 
+  <!-- 分页查询宠物信息-->
+ <select id="selectNetLcProductPage" parameterType="Map" resultType="org.guili.ecshop.business.p2p.bean.NetLcProduct">
+  	select * from t_ma_netlc_product 
+  	<where> 
+  	1=1
+    <if test="companyId !=null">
+        AND companyId = #{companyId} 
+    </if>
+	<if test="status !=null">
+	    AND status = #{status}
+	</if>
+		order by id desc
+    <if test="start !=null and pageSize!=null">
+    	limit #{start},#{pageSize} 
+    </if>
+    </where>
+ </select>
+ 
+   <!-- 查询相关宠物信息-->
+ <select id="selectLikeThis" parameterType="Map" resultType="org.guili.ecshop.business.p2p.bean.NetLcProduct">
+  	select * from t_ma_netlc_product 
+  	<where> 
+  	1=1
+    <if test="companyId !=null">
+        AND companyId = #{companyId} 
+    </if>
+	<if test="status !=null">
+	    AND status = #{status}
+	</if>
+		order by id desc
+    <if test="size!=null">
+    	limit #{size} 
+    </if>
+    </where>
+ </select>
+ 
+    <!-- 查询相关宠物信息-->
+ <select id="selectTuijian" parameterType="Map" resultType="org.guili.ecshop.business.p2p.bean.NetLcProduct">
+  	select * from t_ma_netlc_product 
+  	<where> 
+  	1=1
+	<if test="status !=null">
+	    AND status = #{status}
+	</if>
+		group by companyId ORDER BY id desc
+    <if test="size!=null">
+    	limit #{size} 
+    </if>
+    </where>
+ </select>
+ 
+</mapper>  

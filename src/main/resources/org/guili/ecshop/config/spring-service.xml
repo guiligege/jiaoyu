@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+xmlns:aop="http://www.springframework.org/schema/aop"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/aop 
+           http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	<!--  -->
+	<bean id="httpComponent" class="org.guili.ecshop.util.HttpComponent"></bean>
+	<!-- 注册登录服务类 -->
+	<bean id="lcMemberService" class="org.guili.ecshop.business.impl.member.LcMemberService">
+		<property name="lcMemberDao" ref="lcMemberDao"></property>
+	</bean>
+	<!--p2p理财  -->
+	<bean id="netLcDetailService" class="org.guili.ecshop.business.p2p.impl.NetLcDetailServiceImpl">
+		<property name="netLcDetailDao" ref="netLcDetailDao"></property>
+		<property name="netLcCompanyDao" ref="netLcCompanyDao"></property>
+	</bean>
+	<bean id="lujinsuoSpider" class="org.guili.ecshop.business.p2p.impl.LujinsuoSpider">
+		<property name="netLcDetailService" ref="netLcDetailService"></property>
+		<property name="httpComponent" ref="httpComponent"></property>
+	</bean>
+	<bean id="jimuboxSpider" class="org.guili.ecshop.business.p2p.impl.JimuboxSpider">
+		<property name="netLcDetailService" ref="netLcDetailService"></property>
+	</bean>
+	<bean id="niwodaiSpider" class="org.guili.ecshop.business.p2p.impl.NiwodaiSpider">
+		<property name="netLcDetailService" ref="netLcDetailService"></property>
+	</bean>
+	<bean id="renrendaiSpider" class="org.guili.ecshop.business.p2p.impl.RenRendaiSpider">
+		<property name="netLcDetailService" ref="netLcDetailService"></property>
+		<property name="httpComponent" ref="httpComponent"></property>
+	</bean>
+	<bean id="tounaSpider" class="org.guili.ecshop.business.p2p.impl.TounaSpider">
+		<property name="netLcDetailService" ref="netLcDetailService"></property>
+		<property name="httpComponent" ref="httpComponent"></property>
+	</bean>
+	<bean id="yirenSpider" class="org.guili.ecshop.business.p2p.impl.YirenSpider">
+		<property name="netLcDetailService" ref="netLcDetailService"></property>
+	</bean>
+	
+	<!-- 教育 -->
+	<bean id="courseService" class="org.guili.ecshop.business.jiaoyu.impl.CourseServiceImpl">
+		<property name="courseDao" ref="courseDao"></property>
+	</bean>
+</beans>

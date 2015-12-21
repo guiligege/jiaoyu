@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>    
+<!DOCTYPE mapper    
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.guili.ecshop.dao.netlicai.INetLcCompanyDao">
+ <!-- 要对应到所有属性 才能使用-->
+ <resultMap id="netLcCompanyMap" type="netLcCompany">
+ 	<result property="id" column="id"/>
+ 	<result property="companyName" column="companyName"/>
+ 	<result property="companyNameHash" column="companyNameHash"/>
+	<result property="companyCode" column="companyCode"/>
+	<result property="companyAddress" column="companyAddress"/>
+	<result property="registerMoney" column="registerMoney"/>
+	<result property="runState" column="runState"/>
+	<result property="email" column="email"/>
+	<result property="runCompany" column="runCompany"/>
+	<result property="faRen" column="faRen"/>
+	<result property="renQi" column="renQi"/>
+	<result property="dianHua" column="dianHua"/>
+	<result property="companyYoudian" column="companyYoudian"/>
+	<result property="companyQuedian" column="companyQuedian"/>
+	<result property="sitelogo" column="sitelogo"/>
+	<result property="siteurl" column="siteurl"/>
+	<result property="jiaoyi" column="jiaoyi"/>
+	<result property="lilv" column="lilv"/>
+	<result property="rongzi" column="rongzi"/>
+	<result property="beijing" column="beijing"/>
+	<result property="yuqichuli" column="yuqichuli"/>
+	<result property="huikuanway" column="huikuanway"/>
+	<result property="chanping" column="chanping"/>
+	<result property="touzishijian" column="touzishijian"/>
+	<result property="qixishijian" column="qixishijian"/>
+	<result property="touzitype" column="touzitype"/>
+	<result property="touziqidian" column="touziqidian"/>
+	<result property="touziguimo" column="touziguimo"/>
+	<result property="bianxiansudu" column="bianxiansudu"/>
+	<result property="danbaoCompany" column="danbaoCompany"/>
+	<result property="fengkong" column="fengkong"/>
+	<result property="fengxianjin" column="fengxianjin"/>
+	<result property="diya" column="diya"/>
+	<result property="chongzhifei" column="chongzhifei"/>
+	<result property="tixianfei" column="tixianfei"/>
+	<result property="qitafei" column="qitafei"/>
+	<result property="zhuanrang" column="zhuanrang"/>
+	<result property="zhuanrangfei" column="zhuanrangfei"/>
+	<result property="rongziinfo" column="rongziinfo"/>
+	<result property="zhifuway" column="zhifuway"/>
+	<result property="dianziqian" column="dianziqian"/>
+	<result property="companyInfo" column="companyInfo"/>
+	<result property="companyHistory" column="companyHistory"/>
+	<result property="companytuandui" column="companytuandui"/>
+	<result property="createTime" column="createTime"/>
+	<result property="updateTime" column="updateTime"/>
+	<result property="orderid" column="orderid"/>
+	<result property="status" column="status"/>
+ </resultMap>
+ 
+ 
+ <insert id="addNetLcCompany" parameterType="netLcCompany" >
+	  <![CDATA[
+	  insert into t_ma_netlc_company
+	  				 (companyName,companyNameHash,companyCode,companyAddress,registerMoney,runState,email,runCompany,
+	  				 		faRen,renQi,dianHua,companyYoudian,companyQuedian,sitelogo,siteurl,jiaoyi,
+	  				 		lilv,rongzi,beijing,yuqichuli,huikuanway,chanping,touzishijian,qixishijian,
+	  				 		touzitype,touziqidian,touziguimo,bianxiansudu,danbaoCompany,fengkong,fengxianjin,
+	  				 		diya,chongzhifei,tixianfei,qitafei,zhuanrang,zhuanrangfei,rongziinfo,zhifuway,
+	  				 		dianziqian,companyInfo,companyHistory,companytuandui,createTime,updateTime,orderid,status)
+	  				 		
+	  		values (#{companyName},#{companyNameHash},#{companyCode},#{companyAddress},#{registerMoney},#{runState},#{email},#{runCompany}
+	  						,#{faRen},#{renQi},#{dianHua},#{companyYoudian},#{companyQuedian},#{sitelogo},#{siteurl},#{jiaoyi}
+	  						,#{lilv},#{rongzi},#{beijing},#{yuqichuli},#{huikuanway},#{chanping},#{touzishijian},#{qixishijian}
+	  						,#{touzitype},#{touziqidian},#{touziguimo},#{bianxiansudu},#{danbaoCompany},#{fengkong},#{fengxianjin}
+	  						,#{diya},#{chongzhifei},#{tixianfei},#{qitafei},#{zhuanrang},#{zhuanrangfei},#{rongziinfo},#{zhifuway}
+	  						,#{dianziqian},#{companyInfo},#{companyHistory},#{companytuandui},#{createTime},#{updateTime},#{orderid},#{status}
+	  						)
+	  ]]>
+ </insert>
+   <!-- 查询理财机构信息-->
+ <select id="selectNetLcCompanyById" parameterType="Map" resultType="org.guili.ecshop.business.p2p.bean.NetLcCompany">
+   
+  	select * from t_ma_netlc_company 
+  	<where> 
+  	<if test="id !=null">
+        id = #{id}  
+    </if>
+    </where>
+ </select>
+ 
+  <!-- 根据title的hash值查询销售信息-->
+ <select id="selectNetLcCompanyByHash" parameterType="Map" resultType="Integer">
+  	select count(1) from t_ma_netlc_company 
+  	where
+	  	<if test="companyNameHash !=null">
+	       companyNameHash = #{companyNameHash}
+	    </if>
+	     limit 1
+ </select>
+ 
+    <!-- 查询理财银行信息-->
+ <select id="selectAllNetLcCompany" parameterType="Map" resultType="org.guili.ecshop.business.p2p.bean.NetLcCompany">
+   
+  	select * from t_ma_netlc_company 
+  	<where>
+  	   status=1
+  	   ORDER BY orderid asc 
+    </where>
+ </select>
+ 
+   <!-- 查询理财产品数量-->
+ <select id="selectNetLcCompanyCount" parameterType="Map" resultType="Integer">
+   
+  	select count(1) from t_ma_netlc_company 
+  	<where> 
+  	1=1
+	<if test="beijing !=null">
+	    AND beijing = #{beijing}
+	</if>
+	<if test="renqi !=null">
+	    AND renQi = #{renqi}
+	</if>
+	<if test="rongzi !=null">
+	    AND rongzi = #{rongzi}
+	</if>
+	<if test="status !=null">
+	    AND status = #{status}
+	</if>
+    </where>
+ </select>
+ 
+  <!-- 分页查询宠物信息-->
+ <select id="selectNetLcCompanyPage" parameterType="Map" resultType="org.guili.ecshop.business.p2p.bean.NetLcCompany">
+  	select * from t_ma_netlc_company 
+  	<where> 
+  	1=1
+    <if test="beijing !=null">
+	    AND beijing = #{beijing}
+	</if>
+	<if test="renqi !=null">
+	    AND renQi = #{renqi}
+	</if>
+	<if test="rongzi !=null">
+	    AND rongzi = #{rongzi}
+	</if>
+	<if test="status !=null">
+	    AND status = #{status}
+	</if>
+		order by orderid desc
+    <if test="start !=null and pageSize!=null">
+    	limit #{start},#{pageSize} 
+    </if>
+    </where>
+ </select>
+ 
+</mapper>  

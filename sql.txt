@@ -1,0 +1,65 @@
+drop table `t_ma_course`;
+#在线课程
+CREATE TABLE `t_ma_course` (
+  `id` int(18) NOT NULL AUTO_INCREMENT,	 #课程id
+	`courseName` varchar(200) DEFAULT NULL,#课程名
+  `courseNameHash`  int(18) DEFAULT 0	,	 #课程名hash
+  `gradeId` int(8) DEFAULT NULL,   			 #年级id
+  `grade` varchar(50) DEFAULT NULL,			 #年级
+  `kemuId` int(8) DEFAULT NULL,   			 #科目id		
+  `kemu` varchar(50) DEFAULT NULL,			 #科目
+  `pingTaiId` int(8) DEFAULT NULL,   		 #来源平台id		
+  `pingTaiName` varchar(50) DEFAULT NULL, #来源平台名称
+  `detail` varchar(2000) DEFAULT NULL,	 #课程简介
+  `teacherId` int(8) DEFAULT NULL,   		 #教师id		
+  `teacherName` varchar(50) DEFAULT NULL,#教师名 
+  `jigou` varchar(200) DEFAULT NULL,	 #机构[o
+  `teachTime` varchar(200) DEFAULT NULL, #教学时间
+  `keshi` int(8) DEFAULT 0,              #课时
+  `courseImgURL` varchar(200) DEFAULT NULL,#课程图片
+  `studyCount` varchar(50) DEFAULT NULL, #已学习人数
+  `price` decimal(7,2) DEFAULT NULL,		 #价格
+  `courseUrl` varchar(300) DEFAULT NULL, #课程链接地址。
+  `courseType` int(8)  DEFAULT 0,#课程类型 0，其他网站课程，1本网站课程
+	`status` int(5)  DEFAULT 1,		 #课程状态，1，有效，0，无效
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#在线课程分类
+#enum解决年级，科目
+
+
+#教师信息表
+CREATE TABLE `t_ma_teacher` (
+  `id` int(18) NOT NULL AUTO_INCREMENT,	   #讲师id
+  `teacherName` varchar(200) DEFAULT NULL, #讲师名
+	`zhuanye` 		varchar(200) DEFAULT NULL, #讲师擅长课程
+  `teacherDesc` varchar(500) DEFAULT NULL, #讲师介绍
+  `teacherImg` 			varchar(200) DEFAULT NULL, #从业经验
+  `zhengjian`  	varchar(200) DEFAULT NULL, #讲师证件		
+  `jigou` 		varchar(50) DEFAULT NULL,	 #所在公司
+  `teacherType` int(8) NOT NULL DEFAULT 0, #讲师来源，0，抓取，1，本网站		
+  `pingjia` 		int(8) DEFAULT NULL,			 #讲师总评(根据课程评分，计算总评)
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+drop table `t_ma_teacher`;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

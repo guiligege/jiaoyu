@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN"
+        "http://www.tuckey.org/res/dtds/urlrewrite4.0.dtd">
+
+<!--
+
+    Configuration file for UrlRewriteFilter
+    http://www.tuckey.org/urlrewrite/
+
+-->
+<urlrewrite default-match-type="regex">
+
+    
+    <rule>
+        <note>登陆</note>
+        <from>^/login\.htm$</from>
+        <to type="forward">/member/login.htm</to>
+    </rule>
+
+    <rule>
+        <note>注册</note>
+        <from>^/register\.htm$</from>
+        <to type="forward">/member/register.htm</to>
+    </rule>
+	
+     <!--licai 列表页查询 -->
+    <rule>
+        <note>搜索列表页</note>
+        <from>^/lc-(.*)?-(.*)?-(.*)?-(.*)?-(.*)?-(.*)?\.htm$</from>
+        <to type="forward">/lc.htm?yinhang=$1&amp;income=$2&amp;saleType=$3&amp;days=$4&amp;orderType=$5&amp;pageNum=$6</to>
+    </rule>
+    <outbound-rule>
+        <from>^/lc\.htm\?yinhang=(.*)&amp;income=(.*)&amp;saleType=(.*)&amp;days=(.*)&amp;orderType=(.*)&amp;pageNum=(.*)</from>
+        <to last="true">/lc-$1-$2-$3-$4-$5-$6.htm</to>
+    </outbound-rule>
+    
+    <!-- 理财详细页 -->
+    <rule>
+        <note>理财详细页</note>
+        <from>^/detail-(.*)?\.htm$</from>
+        <to type="forward">/detail.htm?lcid=$1</to>
+    </rule>
+    <outbound-rule>
+        <from>^/detail\.htm\?lcid=(.*)</from>
+        <to last="true">/detail-$1.htm</to>
+    </outbound-rule>
+    
+     <!--统计列表页查询 -->
+    <rule>
+        <note>统计列表页</note>
+        <from>^/tongji-(.*)?\.htm$</from>
+        <to type="forward">/tongji.htm?pageNum=$1</to>
+    </rule>
+    <outbound-rule>
+        <from>^/tongji\.htm\?pageNum=(.*)</from>
+        <to last="true">/tongji-$1.htm</to>
+    </outbound-rule>
+    <!-- 统计详细页 -->
+    <rule>
+        <note>统计详细页</note>
+        <from>^/tjdetail-(.*)?\.htm$</from>
+        <to type="forward">/tongjidetail.htm?lcid=$1</to>
+    </rule>
+    <outbound-rule>
+        <from>^/tongjidetail\.htm\?lcid=(.*)</from>
+        <to last="true">/tjdetail-$1.htm</to>
+    </outbound-rule>
+     <!--互联网理财列表页查询 -->
+    <rule>
+        <note>互联网理财列表页</note>
+        <from>^/netlicailist-(.*)?\.htm$</from>
+        <to type="forward">/netlicailist.htm?pageNum=$1</to>
+    </rule>
+    <outbound-rule>
+        <from>^/netlicailist\.htm\?pageNum=(.*)</from>
+        <to last="true">/netlicailist-$1.htm</to>
+    </outbound-rule>
+    
+    <!--p2p列表页查询 -->
+    <rule>
+        <note>p2p机构列表页</note>
+        <from>^/company-(.*)?-(.*)?-(.*)-(.*)?\.htm$</from>
+        <to type="forward">/netlc/company.htm?beijing=$1&amp;renqi=$2&amp;rongzi=$3&amp;pageNum=$4</to>
+    </rule>
+    <outbound-rule>
+        <from>^/netlc/company\.htm\?beijing=(.*)&amp;renqi=(.*)&amp;rongzi=(.*)&amp;pageNum=(.*)</from>
+        <to last="true">/company-$1-$2-$3-$4.htm</to>
+    </outbound-rule>
+    <rule>
+        <note>p2p机构页</note>
+        <from>^/companydetail-(.*)?\.htm$</from>
+        <to type="forward">/netlc/companydetail.htm?id=$1</to>
+    </rule>
+    <outbound-rule>
+        <from>^/netlc/companydetail\.htm\?id=(.*)</from>
+        <to last="true">/companydetail-$1.htm</to>
+    </outbound-rule>
+    
+    <rule>
+        <note>p2p理财产品列表页</note>
+        <from>^/netlc-(.*)?-(.*)?-(.*)?\.htm$</from>
+        <to type="forward">/netlc.htm?companyId=$1&amp;status=$2&amp;pageNum=$3</to>
+    </rule>
+    <outbound-rule>
+        <from>^/netlc\.htm\?companyId=(.*)&amp;status=(.*)&amp;pageNum=(.*)</from>
+        <to last="true">/netlc-$1-$2-$3.htm</to>
+    </outbound-rule>
+    <rule>
+        <note>p2p详细页</note>
+        <from>^/netdetail-(.*)?\.htm$</from>
+        <to type="forward">/netdetail.htm?id=$1</to>
+    </rule>
+    <outbound-rule>
+        <from>^/netdetail\.htm\?id=(.*)</from>
+        <to last="true">/netdetail-$1.htm</to>
+    </outbound-rule>
+    
+    <!-- 问答 -->
+    <rule>
+        <note>问答详细页</note>
+        <from>^/question-(.*)?-(.*)?-(.*)?\.htm$</from>
+        <to type="forward">/question.htm?id=$1&amp;pinglunType=$2&amp;pageNum=$3</to>
+    </rule>
+    <outbound-rule>
+        <from>^/question\.htm\?id=(.*)&amp;pinglunType=(.*)&amp;pageNum=(.*)</from>
+        <to last="true">/question-$1-$2-$3.htm</to>
+    </outbound-rule>
+    <rule>
+        <note>某个问题某个人的回答页</note>
+        <from>^/answer-(.*)?-(.*)?\.htm$</from>
+        <to type="forward">/answer.htm?id=$1&amp;pinglunType=$2</to>
+    </rule>
+    <outbound-rule>
+        <from>^/answer\.htm\?id=(.*)&amp;pinglunType=(.*)</from>
+        <to last="true">/answer-$1-$2.htm</to>
+    </outbound-rule>
+    <rule>
+        <note>问答列表页</note>
+        <from>^/wenda-(.*)?-(.*)?\.htm$</from>
+        <to type="forward">/wenda.htm?biaoqianId=$1&amp;pageNum=$2</to>
+    </rule>
+    <outbound-rule>
+        <from>^/wenda\.htm\?biaoqianId=(.*)&amp;pageNum=(.*)</from>
+        <to last="true">/wenda-$1-$2.htm</to>
+    </outbound-rule>
+    <rule>
+        <note>p2p机构详细页</note>
+        <from>^/companyPinglun-(.*)?\.htm$</from>
+        <to type="forward">/companyPinglun.htm?id=$1</to>
+    </rule>
+    <outbound-rule>
+        <from>^/companyPinglun\.htm\?id=(.*)</from>
+        <to last="true">/companyPinglun-$1.htm</to>
+    </outbound-rule>
+    <!-- 微信公众号 -->
+    <rule>
+        <note>微信文章详细页</note>
+        <from>^/weixin/detail-(.*)?\.htm$</from>
+        <to type="forward">/weixin/detail.htm?id=$1</to>
+    </rule>
+    <outbound-rule>
+        <from>^/weixin/detail\.htm\?id=(.*)</from>
+        <to last="true">/weixin/detail-$1.htm</to>
+    </outbound-rule>
+     <rule>
+        <note>单个微信账号文章列表页</note>
+        <from>^/weixin/one-(.*)?-(.*)?\.htm$</from>
+        <to type="forward">/weixin/one.htm?haoid=$1&amp;pageNum=$2</to>
+    </rule>
+    <outbound-rule>
+        <from>^/weixin/one\.htm\?haoid=(.*)&amp;pageNum=(.*)</from>
+        <to last="true">/weixin/one-$1-$2.htm</to>
+    </outbound-rule>
+    <rule>
+        <note>首页，标签文章列表页</note>
+        <from>^/weixin/list-(.*)?-(.*)?\.htm$</from>
+        <to type="forward">/weixin/list.htm?tagid=$1&amp;pageNum=$2</to>
+    </rule>
+    <outbound-rule>
+        <from>^/weixin/list\.htm\?tagid=(.*)&amp;pageNum=(.*)</from>
+        <to last="true">/weixin/list-$1-$2.htm</to>
+    </outbound-rule>
+</urlrewrite>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd"> 
+<configuration>
+	<!-- 对象别名 ，用在mapper里面代替整个对象的访问-->
+    <typeAliases>
+       <typeAlias alias="lcMember" type="org.guili.ecshop.business.member.Member"/>
+       <typeAlias alias="netLcProduct" type="org.guili.ecshop.business.p2p.bean.NetLcProduct"/>
+       <typeAlias alias="netLcCompany" type="org.guili.ecshop.business.p2p.bean.NetLcCompany"/>
+      <!-- 教育-->
+       <typeAlias alias="course" type="org.guili.ecshop.business.jiaoyu.bean.Course"/>
+    </typeAliases>
+	<mappers>
+		<!-- 数据库映射文件 -->
+	    <mapper resource="org/guili/ecshop/mybatis/mapper/LcMemberMapper.xml"/>
+	    <mapper resource="org/guili/ecshop/mybatis/mapper/NetLcDetailMapper.xml"/>
+	    <mapper resource="org/guili/ecshop/mybatis/mapper/NetLcCompanyMapper.xml"/>
+	    <!-- 教育-->
+	    <mapper resource="org/guili/ecshop/mybatis/mapper/CourseMapper.xml"/>
+	</mappers>
+</configuration> 
